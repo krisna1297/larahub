@@ -19,19 +19,15 @@ class JawabanController extends Controller
 
     public function index($pertanyaan_id)
     {
-        $question = DB::table('questions')->where('id', $pertanyaan_id)->first();
-        $answers = DB::table('answers')->where('pertanyaan_id', $pertanyaan_id)->get();
+        $question = QuestionModel::find_by_id($pertanyaan_id);
+        $answers = AnswerModel::get_all($pertanyaan_id);
 
         return view('answers.index', compact('question', 'answers'));
     }
 
     public function store(Request $request)
     {
-        $new_jawaban = new \App\Models\AnswerModel;
-        $new_jawaban->isi = $request->get('jawaban');
-        $new_jawaban->pertanyaan_id = $request->get('pertanyaan_id');
-
-        $new_jawaban->save();
+        AnswerModel::insert_answer($request->all());
 
         return redirect()->route('jawaban.index', $request->get('pertanyaan_id'));
     }

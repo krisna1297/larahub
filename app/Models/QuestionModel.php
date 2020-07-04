@@ -29,4 +29,39 @@ class QuestionModel extends Model
         }
         return $questions;
     }
+
+    public static function find_by_id($id)
+    {
+        return DB::table('questions')->where('id', $id)->first();
+    }
+
+    public static function insert_question($request)
+    {
+        $now = date_create()->format('Y-m-d H:i:s');
+        return DB::table('questions')->insert([
+            'judul' => $request['judul'],
+            'isi' => $request['isi'],
+            'created_at' => $now,
+            'updated_at' => $now
+        ]);
+    }
+
+    public static function update_question($id, $request)
+    {
+        $now = date_create()->format('Y-m-d H:i:s');
+        return DB::table('questions')
+            ->where('id', $id)
+            ->update([
+                'judul' => $request['judul'],
+                'isi' => $request['isi'],
+                'updated_at' => $now
+            ]);
+    }
+
+    public static function hapus($id)
+    {
+        return DB::table('questions')
+            ->where('id', $id)
+            ->delete();
+    }
 }

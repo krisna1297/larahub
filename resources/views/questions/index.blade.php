@@ -21,11 +21,29 @@
         <tr>
             <td class="text-center">{{ $i+1 }}.</td>
             <td>
-                <b>{{ $row->judul }}</b> <small><em>({{ $row->created_at }})</em></small>
+                <b>{{ $row->judul }}</b> <small><em>(created {{ $row->created_at }})</em></small>
+                @if ($row->created_at != $row->updated_at)
+                    <small><em> (modified {{ $row->updated_at }})</em></small>
+                @endif
                 <p>{{ $row->isi }}</p>
                 <hr>
-                <a href="{{ route('jawaban.index', $row->id) }}">
-                    {{ $row->answers_count }} Jawaban
+                <a href="{{ route('pertanyaan.edit', $row->id) }}" title="Rubah pertanyaan : {{ $row->judul }}">
+                    <span class="badge badge-warning">Edit</span>
+                </a>
+                |
+
+                @if ($row->answers_count === 0)
+                <!-- Asumsi kalau ada jawaban maka pertanyaan tidak dapat dihapus! -->
+                <form action="/pertanyaan/{{ $row->id }}" method="POST" style="display: inline">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="badge badge-danger" style="border: none">Hapus</button>
+                </form>
+                |
+                @endif
+
+                <a href="{{ route('jawaban.index', $row->id) }}" title="Jawaban : {{ $row->judul }}">
+                    <span class="badge badge-success">{{ $row->answers_count }} Jawaban</span>
                 </a>
             </td>
         </tr>

@@ -28,12 +28,28 @@ class PertanyaanController extends Controller
 
     public function store(Request $request)
     {
-        $new_question = new \App\Models\QuestionModel;
-        $new_question->judul = $request->get('judul');
-        $new_question->isi = $request->get('isi');
+        QuestionModel::insert_question($request->all());
 
-        $new_question->save();
+        return redirect()->route('pertanyaan.index');
+    }
 
+    public function edit($id)
+    {
+        $question = QuestionModel::find_by_id($id);
+
+        return view('questions.edit', compact('question'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $question = QuestionModel::update_question($id, $request->all());
+
+        return redirect()->route('pertanyaan.index');
+    }
+
+    public function destroy($id)
+    {
+        $deleted = QuestionModel::hapus($id);
         return redirect()->route('pertanyaan.index');
     }
 }
