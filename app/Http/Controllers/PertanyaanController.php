@@ -4,12 +4,20 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\QuestionModel;
+use Illuminate\Support\Facades\DB;
 
 class PertanyaanController extends Controller
 {
-    public function index()
+    public function index_elo()
     {
         $questions = QuestionModel::withCount('answers')->get();
+        return view('questions.index', compact('questions'));
+    }
+
+    public function index()
+    {
+        $questions = QuestionModel::get_all();
+
         return view('questions.index', compact('questions'));
     }
 
