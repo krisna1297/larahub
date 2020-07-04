@@ -27,11 +27,14 @@
                 @endif
                 <p>{{ $row->isi }}</p>
                 <hr>
+                <a href="{{ route('pertanyaan.show', $row->id) }}" title="Detail pertanyaan : {{ $row->judul }}">
+                    <span class="badge badge-primary">Show</span>
+                </a>
+                |
                 <a href="{{ route('pertanyaan.edit', $row->id) }}" title="Rubah pertanyaan : {{ $row->judul }}">
                     <span class="badge badge-warning">Edit</span>
                 </a>
                 |
-
                 @if ($row->answers_count === 0)
                 <!-- Asumsi kalau ada jawaban maka pertanyaan tidak dapat dihapus! -->
                 <form action="/pertanyaan/{{ $row->id }}" method="POST" style="display: inline">

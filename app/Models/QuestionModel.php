@@ -20,6 +20,15 @@ class QuestionModel extends Model
         return $this->withCount('answers')->get()->toArray();
     }
 
+    public static function show($id)
+    {
+        $data = [];
+        $data['question'] = DB::table('questions')->where('id', $id)->first();
+        $data['answers'] = DB::table('answers')->where('pertanyaan_id', $id)->get();
+
+        return $data;
+    }
+
     public static function get_all()
     {
         // ambil data tabel pertanyaan dan jumlah jawabannya //

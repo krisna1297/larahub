@@ -6,7 +6,8 @@
 
 @section('content')
 <div class="alert">
-    <b>{{ $question->judul }}</b> <small><em>{{ $question->created_at }}</em></small>
+    <h4>{{ $question->judul }}</h4>
+    <small><em>{{ $question->created_at }}</em></small>
     <p>{{ $question->isi }}</p>
 </div>
 @if (!count($answers))
@@ -26,7 +27,7 @@
     <input type="hidden" name="pertanyaan_id" value="{{ $question->id }}" />
     @csrf
     <div class="form-group">
-        <label for="jawaban">Jawaban</label>
+        <label for="jawaban">Tambah Jawaban</label>
         <textarea class="form-control" placeholder="Isi jawaban" id="jawaban" name="jawaban" rows="3" required></textarea>
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>

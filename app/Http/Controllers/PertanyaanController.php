@@ -8,17 +8,18 @@ use Illuminate\Support\Facades\DB;
 
 class PertanyaanController extends Controller
 {
-    public function index_elo()
-    {
-        $questions = QuestionModel::withCount('answers')->get();
-        return view('questions.index', compact('questions'));
-    }
-
     public function index()
     {
         $questions = QuestionModel::get_all();
 
         return view('questions.index', compact('questions'));
+    }
+
+    public function show($id)
+    {
+        $data = QuestionModel::show($id);
+
+        return view('questions.show', compact('data'));
     }
 
     public function create()

@@ -10,13 +10,6 @@ use App\Models\QuestionModel;
 
 class JawabanController extends Controller
 {
-    public function index_elo($pid)
-    {
-        $question = QuestionModel::find($pid);
-        $answers = $question->answers;
-        return view('answers.index', compact('question', 'answers'));
-    }
-
     public function index($pertanyaan_id)
     {
         $question = QuestionModel::find_by_id($pertanyaan_id);
